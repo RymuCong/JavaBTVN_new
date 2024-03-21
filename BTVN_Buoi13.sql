@@ -20,10 +20,11 @@ SELECT CONCAT(id,": ",NAME,", ", Ngay_Bat_Dau) AS thong_tin FROM nhanvien;
 # Bài 2
 
 CREATE TABLE employee (
-	employee_id INT,
+	employee_id INT PRIMARY KEY,
 	employee_name VARCHAR(255),
 	salary INT
 );
+
 
 INSERT INTO employee (employee_id, employee_name, salary)
 VALUES 
@@ -33,7 +34,9 @@ VALUES
 	(42,'Watson',90000);
 	
 UPDATE employee 
-SET salary = salary * 2;
+SET salary = salary / 2;
+
+SELECT employee_id, employee_name, if (salary < 50000, salary * 2, salary) FROM employee;
 
 SELECT * FROM employee;
 
