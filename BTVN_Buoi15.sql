@@ -1,6 +1,6 @@
 CREATE TABLE Khoa (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	makhoa VARCHAR(10),
+	makhoa VARCHAR(10) UNIQUE,
 	tenkhoa VARCHAR(30),
 	dienthoai VARCHAR(10)
 );
@@ -9,10 +9,10 @@ CREATE TABLE SinhVien (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	masv INT,
 	hotensv VARCHAR(30),
-	makhoa INT,
+	makhoa VARCHAR(10),
 	namsinh INT,
 	quequan VARCHAR(30),
-	FOREIGN KEY (makhoa) REFERENCES khoa (id)
+	FOREIGN KEY (makhoa) REFERENCES khoa (makhoa)
 );
 
 INSERT INTO Khoa (makhoa, tenkhoa, dienthoai) VALUES
@@ -28,15 +28,15 @@ INSERT INTO Khoa (makhoa, tenkhoa, dienthoai) VALUES
 ('K10', 'Duc', '0123456780');
 
 INSERT INTO SinhVien (masv, hotensv, makhoa, namsinh, quequan) VALUES
-(1, 'Nguyen Van A', 1, 2006, 'Ha Noi'),
-(2, 'Le Thi B', 1, 2001, 'Vinh Phuc'),
-(3, 'Tran Van C', 2, 2003, 'Thanh Hoa'),
-(4, 'Pham Thi D', 2, 2001, 'Hai Phong'),
-(5, 'Vu Van E', 3, 2009, 'Nam Dinh'),
-(6, 'Bui Thi F', 3, 2001, 'HCM'),
-(7, 'Hoang Van G', 4, 1999, 'Ha Noi'),
-(8, 'Dang Thi H', 4, 2004, 'Viet Nam'),
-(9, 'Do Van I', 5, 2005, 'Canada');
+(1, 'Nguyen Van A', 'K02', 2006, 'Ha Noi'),
+(2, 'Le Thi B', 'K01', 2001, 'Vinh Phuc'),
+(3, 'Tran Van C', 'K03', 2003, 'Thanh Hoa'),
+(4, 'Pham Thi D', 'K01', 2001, 'Hai Phong'),
+(5, 'Vu Van E', 'K06', 2009, 'Nam Dinh'),
+(6, 'Bui Thi F', 'K05', 2001, 'HCM'),
+(7, 'Hoang Van G', 'K08', 1999, 'Ha Noi'),
+(8, 'Dang Thi H', 'K09', 2004, 'Viet Nam'),
+(9, 'Do Van I', 'K03', 2005, 'Canada');
 
 INSERT INTO SinhVien (masv, hotensv, namsinh, quequan) VALUES
 (10, 'Nguyen Thi J', 2001, 'Ha Noi'),
@@ -46,7 +46,7 @@ INSERT INTO SinhVien (masv, hotensv, namsinh, quequan) VALUES
 # Hãy đưa ra thông tin gồm mã số, họ tên và tên khoa của tất cả các sinh viên
 SELECT masv, hotensv, tenkhoa
 FROM sinhvien LEFT JOIN khoa 
-ON sinhvien.makhoa = khoa.id;
+ON sinhvien.makhoa = khoa.makhoa;
 
 # Sử dụng lệnh SQL để xuất ra thông tin về những sinh viên chưa được gán vào 1 khoa xác định
 SELECT *
@@ -56,5 +56,5 @@ WHERE sinhvien.makhoa IS NULL;
 # Sử dụng câu lệnh SQL xuất ra danh sách gồm Mã số, Họ tên và Tuổi của các sinh viên khoa ‘TOAN’?
 SELECT masv, hotensv, (YEAR(NOW()) - namsinh) AS Tuoi
 FROM sinhvien JOIN khoa
-ON sinhvien.makhoa = khoa.id
+ON sinhvien.makhoa = khoa.makhoa
 WHERE khoa.tenkhoa = 'Toan';
