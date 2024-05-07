@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Product</title>
+</head>
+<body>
+<div th:fragment="ProductListClient">
+    <h4>List Product</h4>
+
+    <table class="table table-responsive table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Category Name</th>
+        </tr>
+        </thead>
+        <!--/*@thymesVar id="products" type=""*/-->
+        <tr th:each="product : ${products}" >
+            <td th:text="${product.id}">Id</td>
+            <td th:text="${product.productName}">Product name</td>
+            <td th:text="${product.category?.categoryName}">Category Name</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
