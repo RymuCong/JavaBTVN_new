@@ -1,0 +1,73 @@
+<div th:fragment="BlogAdd">
+
+    <div class = "alert alert-warning" id="message"></div>
+
+    <script>
+        $(function () {
+            $("#message").hide();
+
+            $("#btnSave").click((function () {
+
+                var form = document.getElementById("addForm");
+
+                let blogName = $('#blogName').val();
+
+                if (blogName === '')
+                {
+                    $("#message").text("Phải nhập tên blog");
+                    $("#message").show();
+                }
+                else
+                    form.submit();
+            }))
+        })
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+
+            $("#btnSave").click(function(e) {
+                e.preventDefault();
+
+                // Update the content input field with the Summernote's content
+                $('input[name="content"]').val($('#summernote').summernote('code'));
+
+                // Submit the form
+                $("#addForm").submit();
+            });
+        });
+    </script>
+
+    <div class="container">
+
+        <p class = "h4 mb-4">Save Blog</p>
+        <hr>
+
+        <form action="#" th:action="@{/admin/blog/save}" th:object="${blog}" method="post" id="addForm" enctype="multipart/form-data">
+            <!-- Add hidden form field to handle the update -->
+            <input type="hidden" th:field="*{id}">
+
+            <input type="text" id="blogName" th:field="*{blogName}" class="form-control mb-4 w-25" placeholder="Blog Name"/>
+
+            <span>Ảnh</span>
+            <input type="file" name="imageFile" class="form-control mb-4 w-25" accept="image/*"/>
+
+            <input type="text" th:field="*{description}" class="form-control mb-4 w-25" placeholder="Description"/>
+
+            <select th:field="*{author}" class="form-control mb-4 w-25">
+                <option th:each="tempAuthor : ${authors}" th:value="${tempAuthor.id}" th:text="${tempAuthor.authorName}"></option>
+            </select>
+
+            <div id="summernote"></div>
+            <input type="hidden" id="content" name="content" th:field="*{content}">
+
+            <button type="button" id="btnSave" class="btn btn-info col-2">Save</button>
+        </form>
+
+        <hr>
+        <a th:href="@{/admin/blog}">Back to blog List</a>
+    </div>
+</div>
+
+

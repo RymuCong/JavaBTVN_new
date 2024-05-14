@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Account</title>
+<!--    <link th:href = "@{/css/bootstrap.min.css}" rel="stylesheet">-->
+<!--    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.4/css/all.css} "/>
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+</head>
+<body>
+
+<div th:fragment="AccountList">
+    <h4>Account List</h4>
+
+    <table class="table table-responsive table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        <!--/*@thymesVar id="accounts" type=""*/-->
+        <tr th:each="account : ${accounts}" >
+            <td th:text="${account.id}">Id</td>
+            <td th:text="${account.getUsername()}">Username</td>
+            <td th:text="${account.getEmail()}">Email</td>
+            <td th:text="${account.createdAt}">Ngày tạo</td>
+            <td th:text="${account.getUpdatedAt()}">Ngày update</td>
+            <td>Sửa</td>
+            <td><a th:href="${'/admin/account/delete/' + account.id}">Xóa</a></td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>

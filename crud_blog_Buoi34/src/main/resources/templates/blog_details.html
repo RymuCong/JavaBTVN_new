@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Detail</title>
+</head>
+<body>
+
+<div th:fragment="BlogDetail">
+    <h4>Blog Detail</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img th:src="${'/images/' + blog.image}" alt="blog" class="img-fluid">
+            </div>
+            <div class="col-md-12">
+                <h4 th:text="${blog.blogName}"></h4>
+                <p th:text="${blog.author?.authorName}"></p>
+                <p th:text="${blog.description}">Description</p>
+                <br>
+                <!-- Use th:utext to insert unescaped HTML content -->
+                <div th:utext="${blog.content}"></div>
+                <br>
+                <a th:href="${'/admin/blog/edit/' + blog.id}" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="${'/admin/blog/delete/' + blog.id}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

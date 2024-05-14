@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Authors</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.4/css/all.css} "/>
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+</head>
+<body>
+
+<div th:fragment="AuthorsList">
+    <h4>Authors List</h4>
+
+    <table class="table table-responsive table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Author Name</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        <tr th:each="author : ${authors}" >
+            <td th:text="${author.id}">Id</td>
+            <td th:text="${author.authorName}">Author name</td>
+            <td>Sửa</td>
+            <td><a th:href="${'/admin/author/delete/' + author.id}">Xóa</a></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
