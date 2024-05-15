@@ -15,7 +15,7 @@ import java.util.Optional;
 @Controller
 public class ClientIndexController {
 
-    private BlogRepository blogRepo;
+    private final BlogRepository blogRepo;
 
     @Autowired
     public ClientIndexController(BlogRepository blogRepo) {
