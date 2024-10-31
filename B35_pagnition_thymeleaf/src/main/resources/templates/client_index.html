@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.4/css/all.css} "/>
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+</head>
+<body>
+
+<!--    make a search bar-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <form class="form-inline" action="/search">
+                    <input class="form-control mr-sm-2" type="search" name="data" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+
+    <nav class="navbar navbar-expand-sm">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">Logo</a>
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Trang Chủ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/product">Sản Phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <span th:text="${page}"></span>
+    <div th:if="${page == 'product_list_client'}">
+        <div th:replace="product_list_client.html::ProductListClient"></div>
+    </div>
+    <div th:if="${page == 'client_contact'}">
+        <div th:replace="client_contact.html::ClientContact"></div>
+    </div>
+    <div th:if="${page == 'product_detail_client'}">
+        <div th:replace="product_details.html::ProductDetail"></div>
+    </div>
+    <div th:if="${page == 'product_search'}">
+        <div th:replace="product_search.html::ProductSearch">
+    </div>
+    </div>
+</body>
+</html>

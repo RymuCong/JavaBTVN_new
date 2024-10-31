@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Product</title>
+</head>
+<body>
+<div th:fragment="ProductListClient">
+    <h4>List Product</h4>
+
+<!--    <table class="table table-responsive table-bordered table-striped">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th>Product Name</th>-->
+<!--            <th>Price</th>-->
+<!--            <th>Image</th>-->
+<!--            <th>Category Name</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        &lt;!&ndash;/*@thymesVar id="products" type=""*/&ndash;&gt;-->
+<!--        <tr th:each="product : ${products}" >-->
+<!--            <td th:text="${product.id}">Id</td>-->
+<!--            <td th:text="${product.productName}">Product name</td>-->
+<!--            <td th:text="${product.price}">Price</td>-->
+<!--            <td th:text="${product.image}">Image</td>-->
+<!--            <td th:text="${product.category?.categoryName}">Category Name</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--    <div th:each="product : ${products}">-->
+<!--    <div class="profile-card">-->
+<!--&lt;!&ndash;        <img th:src="@{/images/${product.image}}" alt="Avatar" style="width:100px">&ndash;&gt;-->
+<!--        <img th:src="${'/images/' + product.image}" th:alt="Avatar" style="width:100px">-->
+<!--        <div class="container">-->
+<!--            <p th:text="${'src/main/resources/static/images/' + product.image}"></p>-->
+<!--            <p th:text="${product.id}"></p>-->
+<!--            <h4 th:text="${product.productName}"></h4>-->
+<!--            <p th:text="${product.price}"></p>-->
+<!--            <p th:text="${product.category?.categoryName}"></p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--        </div>-->
+
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+                <div th:each="product : ${products}" class="col-md-6 col-lg-4 mb-4 mb-md-0">
+                    <div class="card text-black">
+                        <img th:src="${'/images/' + product.image}"
+                             class="card-img-top" alt="Product" />
+                        <div class="card-body">
+                            <div class="text-center mt-1">
+                                <h4 class="card-title" th:text="${product.productName}"></h4>
+                                <h6 class="text-primary mb-1 pb-3" th:text="${product.price + '$'}"></h6>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="p-3 mx-n3 mb-4" style="background-color: #eff1f2;">
+<!--                                    <h5 class="mb-0" th:text="${product.category?.categoryName}"></h5>-->
+                                    <h5 class="mb-0" th:text="${product.categoryName}"></h5>
+                                </div>
+
+                                <p class="card-title" th:text="${product.description}"></p>
+
+                            <div class="text-center">
+                                <a th:href="${'product/' + product.id}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary flex-fill me-1" data-mdb-ripple-color="dark">
+                                    Chi tiết
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+</div>
+
+
+
+
+</body>
+</html>

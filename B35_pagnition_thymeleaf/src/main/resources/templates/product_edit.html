@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.4/css/all.css} "/>
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+</head>
+<body>
+
+<div th:fragment="ProductEdit">
+    <h4>Edit Product</h4>
+
+    <div class = "alert alert-warning" id="message"></div>
+
+    <script>
+        $(function () {
+            $("#message").hide();
+
+            $("#btnSave").click((function () {
+
+                var form = document.getElementById("editForm");
+
+                let productName = $('#productName').val();
+
+                if (productName === '')
+                {
+                    $("#message").text("Phải nhập tên sản phẩm");
+                    $("#message").show();
+                }
+                else
+                    form.submit();
+            }))
+        })
+    </script>
+
+    <div class="container">
+
+        <h3>Product Form</h3>
+        <hr>
+
+        <p class = "h4 mb-4">Edit Product</p>
+
+        <form action="#" th:action="@{/admin/product/save}" th:object="${product}" id="editForm" method="post" enctype="multipart/form-data">
+            <!-- Add hidden form field to handle the update -->
+            <input type="hidden" th:field="*{id}">
+
+            <input type="text" id="productName" th:field="*{productName}" class="form-control mb-4 w-25"/>
+
+            <input type="number" th:field="*{price}" class="form-control mb-4 w-25"/>
+
+            <span>Ảnh</span>
+            <input type="file" name="imageFile" class="form-control mb-4 w-25" accept="image/*"/>
+
+            <input type="text" th:field="*{description}" class="form-control mb-4 w-25"/>
+
+            <select th:field="*{category}" class="form-control mb-4 w-25">
+<!--                <option th:if="${product.category == null}" selected>0</option>-->
+                <option th:each="tempCategory : ${categories}" th:value="${tempCategory.id}" th:text="${tempCategory.categoryName}"></option>
+            </select>
+
+            <button type="button" id="btnSave" class="btn btn-info col-2">Save</button>
+        </form>
+
+        <hr>
+        <a th:href="@{/admin/product}">Back to Product List</a>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Product</title>
+</head>
+<body>
+<div th:fragment="ProductList">
+    <h4>List Product</h4>
+
+    <a th:href="@{/admin/product/addForm}"class="btn btn-primary btn-sm mb-3">Add Product</a>
+
+    <table class="table table-responsive table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Category Name</th>
+            <th>Image</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        <tr th:each="product : ${products}" >
+            <td th:text="${product.id}">Id</td>
+            <td th:text="${product.productName}">Product name</td>
+            <td th:text="${product.price}">Price</td>
+            <td th:text="${product.category?.categoryName}">Category Name</td>
+            <td style="width: 100px" th:text="${product.image}">Image</td>
+            <td><a th:href="${'/admin/product/edit/' + product.id}">Sửa</a></td>
+            <td><a th:href="${'/admin/product/delete/' + product.id}">Xóa</a></td>
+        </tr>
+    </table>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:if="${currentPage > 0}">
+                <a class="page-link" th:href="@{/admin/product(page=${currentPage - 1})}">Previous</a>
+            </li>
+            <li class="page-item" th:each="item : ${#numbers.sequence(0, totalPage - 1)}">
+                <a class="page-link" th:href="@{/admin/product(page=${item})}" th:text="${item + 1}"></a>
+            </li>
+            <li class="page-item" th:if="${currentPage < totalPage - 1}">
+                <a class="page-link" th:href="@{/admin/product(page=${currentPage + 1})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>
